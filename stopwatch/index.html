@@ -1,0 +1,45 @@
+<!doctype html>
+<html ng-app="stopwatchApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Daniel Stopwatch</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href='fonts/font.css' rel='stylesheet' type='text/css'>
+    <link href='css/style.css' rel='stylesheet' type='text/css'>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular.min.js"></script>
+</head>
+<body>
+<div class="outer">
+    <div class="middle">
+        <div id="timer-container" ng-controller="stopwatchController">
+
+            <div id="timer" class="digifont">{{timeStatus.minutes}}<span class="seperator"
+                                                                         ng-class="{'blinking-colon' : timerIsRunning}">:</span>{{timeStatus.seconds}}<span
+                    class="seperator" ng-class="{'blinking-colon' : timerIsRunning}">.</span>{{timeStatus.ms}}
+
+                <div id="opacity-timer">88:88.88</div>
+            </div>
+            <div class="buttons">
+                <span class="button-container hand"  ng-click="startTimer()" ng-hide="timerIsRunning"><span
+                        class="icon fa fa-play cursor-pointer">&nbsp;</span>start</span>
+                <span class="button-container hand cursor-pointer" ng-click="stopTimer()" ng-show="timerIsRunning"><span
+                        class="icon fa fa-pause">&nbsp;</span>pause</span>
+                <span ng-click="lapAdd() " id="lap"><img src="images/lap-icon.jpg" class="cursor-pointer" alt=""></span>
+            </div>
+            <ul id="laplist">
+                <li ng-repeat="lap in laps track by $index" class="digifont">
+                    <div class="laptime">{{lap.minutes}}:{{lap.seconds}}.{{lap.ms}}</div>
+
+                    <div class="lap-text"><input type="text" value="some title" ng-model="lap.title"
+                                                 ng-Change="saveToLocalStorage()"></div>
+                    <div class="remove-btn cursor-pointer" ng-click="lapRemove($index)">remove</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script src="js/app.js"></script>
+</body>
+</html>
